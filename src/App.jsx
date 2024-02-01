@@ -1,7 +1,16 @@
 import React from "react";
+import Header from "./components/Header";
+import Center from "./components/Center";
 
 const App = () => {
-  return <div className="text-3xl text-red-500 underline">App</div>;
+  return (
+    <div>
+      {/* Header Section */}
+      <Header />
+      {/* Center Section */}
+      <Center/>
+    </div>
+  );
 };
 
 export default App;
