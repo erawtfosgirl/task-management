@@ -22,9 +22,17 @@ const boardsSlice = createSlice({
       board.name = payload.name;
       board.columns = payload.newColumns;
     },
+    setBoardActive: (state, action) => {
+      state.map((board, index) => {
+        index === action.payload.index
+          ? (board.isActive = true)
+          : (board.isActive = false);
+        return board;
+      });
+    },
   },
 });
 
-export const { addBoard, editBoard } = boardsSlice.actions;
+export const { addBoard, editBoard, setBoardActive } = boardsSlice.actions;
 
 export default boardsSlice.reducer;
