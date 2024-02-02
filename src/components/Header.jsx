@@ -4,8 +4,9 @@ import iconDown from "../assets/icon-chevron-down.svg";
 import iconUp from "../assets/icon-chevron-up.svg";
 import ellipsis from "../assets/icon-vertical-ellipsis.svg";
 import HeaderDropdown from "./HeaderDropdown";
+import AddEditBoardModal from "../modals/AddEditBoardModal";
 
-const Header = () => {
+const Header = ({ boardModalOpen, setBoardModalOpen }) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   return (
     <div className="p-4 fixed left-0 bg-white dark:bg-[#2b2c37] z-50 right-0">
@@ -35,7 +36,15 @@ const Header = () => {
           <img src={ellipsis} alt="ellipsis" className="cursor-pointer h-6 " />
         </div>
       </header>
-      {openDropdown && <HeaderDropdown setOpenDropdown={setOpenDropdown} />}
+      {openDropdown && (
+        <HeaderDropdown
+          setBoardModalOpen={setBoardModalOpen}
+          setOpenDropdown={setOpenDropdown}
+        />
+      )}
+      {boardModalOpen && (
+        <AddEditBoardModal setBoardModalOpen={setBoardModalOpen} type='add' />
+      )}
     </div>
   );
 };

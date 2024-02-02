@@ -6,7 +6,7 @@ import lightIcon from "../assets/icon-light-theme.svg";
 import { Switch } from "@headlessui/react";
 import useDarkMode from "../hooks/useDarkMode";
 
-const HeaderDropdown = ({ setOpenDropdown }) => {
+const HeaderDropdown = ({ setOpenDropdown, setBoardModalOpen }) => {
   const [colorTheme, setTheme] = useDarkMode();
   const [darkSide, setDarkSide] = useState(
     colorTheme === "light" ? true : false
@@ -44,7 +44,13 @@ const HeaderDropdown = ({ setOpenDropdown }) => {
               <p className="text-lg font-bold">{board.name}</p>
             </div>
           ))}
-          <div className="flex items-baseline space-x-2 text-[#635fc7] px-5 py-4">
+          <div
+            onClick={() => {
+              setBoardModalOpen(true);
+              setOpenDropdown(false);
+            }}
+            className="flex items-baseline space-x-2 text-[#635fc7] px-5 py-4 cursor-pointer"
+          >
             <img src={boardIcon} alt="borad icon" className="h-4" />
             <p className="text-lg font-bold">Create New Board</p>
           </div>
