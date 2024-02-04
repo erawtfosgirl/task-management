@@ -11,6 +11,7 @@ const AddEditBoardModal = ({ setBoardModalOpen, type }) => {
     { name: "Todo", task: [], id: uuidv4() },
     { name: "Doing", task: [], id: uuidv4() },
   ]);
+
   const dispatch = useDispatch();
 
   const onChange = (id, newValue) => {
