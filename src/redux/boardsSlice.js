@@ -22,6 +22,10 @@ const boardsSlice = createSlice({
       board.name = payload.name;
       board.columns = payload.newColumns;
     },
+    deleteBoard: (state) => {
+      const board = state.find((board) => board.isActive);
+      state.splice(state.indexOf(board), 1);
+    },
     setBoardActive: (state, action) => {
       state.map((board, index) => {
         index === action.payload.index
@@ -63,7 +67,7 @@ const boardsSlice = createSlice({
   },
 });
 
-export const { addBoard, editBoard, setBoardActive, addTask, editTask } =
+export const { addBoard, editBoard,deleteBoard, setBoardActive, addTask, editTask } =
   boardsSlice.actions;
 
 export default boardsSlice.reducer;

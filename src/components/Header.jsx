@@ -8,8 +8,11 @@ import AddEditBoardModal from "../modals/AddEditBoardModal";
 import { useDispatch, useSelector } from "react-redux";
 import AddEditTaskModal from "../modals/AddEditTaskModal";
 import EllipsisMenu from "./EllipsisMenu";
+import DeleteModal from "../modals/DeleteModal";
+import { deleteBoard, setBoardActive } from "../redux/boardsSlice";
 
 const Header = ({ boardModalOpen, setBoardModalOpen }) => {
+  const dispatch = useDispatch();
   const [openDropdown, setOpenDropdown] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [openAddEditTask, setOpenAddEditTask] = useState(false);
@@ -27,6 +30,18 @@ const Header = ({ boardModalOpen, setBoardModalOpen }) => {
     setIsDeleteModalOpen(true);
     setIsEllipsisOpen(false);
   };
+
+  const onDeleteBtnClick = () => {
+    dispatch(deleteBoard())
+    dispatch(setBoardActive({ index: 0 }))
+    setIsDeleteModalOpen(false)
+  };
+
+  const onDropdownClick = () => {
+    setOpenDropdown(state => !state)
+    setIsEllipsisOpen(false)
+    setBoardType('add')
+  }
   return (
     <div className="p-4 fixed left-0 bg-white dark:bg-[#2b2c37] z-50 right-0">
       <header className="flex justify-between dark:text-white items-center">
@@ -44,7 +59,7 @@ const Header = ({ boardModalOpen, setBoardModalOpen }) => {
               src={openDropdown ? iconUp : iconDown}
               alt="dropdown icon"
               className="w-3 ml-2 cursor-pointer md:hidden"
-              onClick={() => setOpenDropdown((state) => !state)}
+              onClick={onDropdownClick}
             />
           </div>
         </div>
@@ -67,7 +82,7 @@ const Header = ({ boardModalOpen, setBoardModalOpen }) => {
             }}
             src={ellipsis}
             alt="ellipsis"
-            className="cursor-pointer h-6 "
+            className="cursor-pointer h-6"
           />
           {isEllipsis && (
             <EllipsisMenu
@@ -95,6 +110,15 @@ const Header = ({ boardModalOpen, setBoardModalOpen }) => {
           setOpenAddEditTask={setOpenAddEditTask}
           device="mobile"
           type="add"
+        />
+      )}
+
+      {isDeleteModalOpen && (
+        <DeleteModal
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+          onDeleteBtnClick={onDeleteBtnClick}
+          title={board.name}
+          type="board"
         />
       )}
     </div>
