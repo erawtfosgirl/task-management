@@ -32,16 +32,16 @@ const Header = ({ boardModalOpen, setBoardModalOpen }) => {
   };
 
   const onDeleteBtnClick = () => {
-    dispatch(deleteBoard())
-    dispatch(setBoardActive({ index: 0 }))
-    setIsDeleteModalOpen(false)
+    dispatch(deleteBoard());
+    dispatch(setBoardActive({ index: 0 }));
+    setIsDeleteModalOpen(false);
   };
 
   const onDropdownClick = () => {
-    setOpenDropdown(state => !state)
-    setIsEllipsisOpen(false)
-    setBoardType('add')
-  }
+    setOpenDropdown((state) => !state);
+    setIsEllipsisOpen(false);
+    setBoardType("add");
+  };
   return (
     <div className="p-4 fixed left-0 bg-white dark:bg-[#2b2c37] z-50 right-0">
       <header className="flex justify-between dark:text-white items-center">
@@ -65,7 +65,14 @@ const Header = ({ boardModalOpen, setBoardModalOpen }) => {
         </div>
         {/* Right Side */}
         <div className="flex space-x-4 items-center md:space-x-6">
-          <button className="hidden md:block button">+ Add New Task</button>
+          <button
+            onClick={() => {
+              setOpenAddEditTask((state) => !state);
+            }}
+            className="hidden md:block button"
+          >
+            + Add New Task
+          </button>
           <button
             onClick={() => {
               setOpenAddEditTask((state) => !state);
