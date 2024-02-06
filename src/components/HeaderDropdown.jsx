@@ -8,11 +8,12 @@ import useDarkMode from "../hooks/useDarkMode";
 import { setBoardActive } from "../redux/boardsSlice";
 
 const HeaderDropdown = ({ setOpenDropdown, setBoardModalOpen }) => {
+  const dispatch = useDispatch();
+
   const [colorTheme, setTheme] = useDarkMode();
   const [darkSide, setDarkSide] = useState(
     colorTheme === "light" ? true : false
   );
-  const dispatch = useDispatch();
 
   const toggleDarkMode = (checked) => {
     setTheme(colorTheme);
