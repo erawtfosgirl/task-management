@@ -2,6 +2,7 @@ import { shuffle } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Task from "./Task";
+import { dragTask } from "../redux/boardsSlice";
 
 const Column = ({ colIndex }) => {
   const colors = [
@@ -18,14 +19,33 @@ const Column = ({ colIndex }) => {
   const [color, setColor] = useState(null);
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.boards);
-  const board = boards.find((board) => board.isActive===true);
+  const board = boards.find((board) => board.isActive === true);
   const col = board.columns.find((col, i) => i === colIndex);
 
   useEffect(() => {
     setColor(shuffle(colors).pop()); // it's should work one time
   }, [dispatch]);
+
+  const handleOnDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleOnDrop = (e) => {
+    const { prevColIndex, taskIndex } = JSON.parse(
+      e.dataTransfer.getData("text")
+    )
+
+    if (colIndex !== prevColIndex) {
+      dispatch(dragTask({colIndex,prevColIndex,taskIndex}))
+    }
+  }
+
   return (
-    <div className="scrollbar-hide mx-5 pt-[90px] min-w-[280px]">
+    <div
+      onDrop={handleOnDrop}
+      onDragOver={handleOnDragOver}
+      className="scrollbar-hide mx-5 pt-[90px] min-w-[280px]"
+    >
       <p
         className="font-semibold flex items-center gap-2
         tracking-widest md-tracking-[.2em] text-[#828fa3]"
@@ -34,10 +54,7 @@ const Column = ({ colIndex }) => {
         {col.name}({col?.tasks?.length})
       </p>
       {col.tasks?.map((task, index) => (
-        <Task
-          key={index}
-          taskIndex={index}
-          colIndex={colIndex} />
+        <Task key={index} taskIndex={index} colIndex={colIndex} />
       ))}
     </div>
   );
