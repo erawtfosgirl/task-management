@@ -20,8 +20,13 @@ const AddEditTaskModal = ({
     (board) => board.isActive
   );
 
+  const[isFirstLoad,setIsFirstLoad]=useState(true)
+
   const columns = board.columns;
   const col = columns.find((col, index) => index === prevColIndex);
+
+  const task = col ? col.tasks.find((task, index) => index === taskIndex):[]
+
   const [status, setStatus] = useState(columns[prevColIndex].name);
   const [newColIndex, setNewColIndex] = useState(prevColIndex);
   const [subtasks, setSubtasks] = useState([
@@ -30,6 +35,18 @@ const AddEditTaskModal = ({
   ]);
 
   const dispatch = useDispatch();
+
+  if (type === 'edit' && isFirstLoad) {
+    setSubtasks(
+      task.subtasks.map((subtask) => {
+        return {...subtask, id:uuidv4()}
+      })
+    )
+    setTitle(task.title)
+    setDescription(task.description)
+    setIsFirstLoad(false)
+  }
+
   const onChange = (id, newValue) => {
     setSubtasks((prevState) => {
       const newState = [...prevState];
