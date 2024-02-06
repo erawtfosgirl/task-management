@@ -9,8 +9,8 @@ import lightIcon from "../assets/icon-light-theme.svg";
 import showSidebarIcon from "../assets/icon-show-sidebar.svg";
 import hideSidebarIcon from "../assets/icon-hide-sidebar.svg";
 
-import AddEditBoardModal from "../modals/AddEditBoardModal";
 import { setBoardActive } from "../redux/boardsSlice";
+import AddEditBoardModal from "../modals/AddEditBoardModal";
 
 function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
   const dispatch = useDispatch();
@@ -44,12 +44,12 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
           {/* reWrite modal  */}
 
           {isSideBarOpen && (
-            <div className=" bg-white  dark:bg-[#2b2c37]    w-full   py-4 rounded-xl">
+            <div className=" bg-white  dark:bg-[#2b2c37] w-full py-4 rounded-xl">
               <h3 className=" dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-8 ">
                 ALL BOARDS ({boards?.length})
               </h3>
 
-              <div className="  dropdown-borad flex flex-col h-[70vh]  justify-between ">
+              <div className="  dropdown-borad flex flex-col h-[65vh]  justify-between ">
                 <div>
                   {boards.map((board, index) => (
                     <div
@@ -125,7 +125,7 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
       {isBoardModalOpen && (
         <AddEditBoardModal
           type="add"
-          setBoardModalOpen={setIsBoardModalOpen}
+          setIsBoardModalOpen={setIsBoardModalOpen}
         />
       )}
     </div>

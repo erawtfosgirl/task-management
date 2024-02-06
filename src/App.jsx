@@ -6,6 +6,7 @@ import boardsSlice, { setBoardActive } from "./redux/boardsSlice";
 import EmptyBoard from "./components/EmptyBoard";
 
 const App = () => {
+   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
   const dispatch = useDispatch();
 
   const boards = useSelector((state) => state.boards);
@@ -15,7 +16,7 @@ const App = () => {
     dispatch(setBoardActive({ index: 0 }));
   }
 
-  const [boardModalOpen, setBoardModalOpen] = useState(false);
+ 
   return (
     <div className="overflow-hidden overflow-x-scroll">
       <>
@@ -23,13 +24,13 @@ const App = () => {
           <>
             {/* Header Section */}
             <Header
-              boardModalOpen={boardModalOpen}
-              setBoardModalOpen={setBoardModalOpen}
+              isBoardModalOpen={isBoardModalOpen}
+              setIsBoardModalOpen={setIsBoardModalOpen}
             />
             {/* Center Section */}
             <Center
-              boardModalOpen={boardModalOpen}
-              setBoardModalOpen={setBoardModalOpen}
+              isBoardModalOpen={isBoardModalOpen}
+              setIsBoardModalOpen={setIsBoardModalOpen}
             />
           </>
         ) : (
