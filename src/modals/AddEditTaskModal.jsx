@@ -8,6 +8,7 @@ const AddEditTaskModal = ({
   type,
   device,
   setOpenAddEditTask,
+  setIsTaskModalOpen,
   taskIndex,
   prevColIndex = 0,
 }) => {
